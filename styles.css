@@ -181,6 +181,34 @@ main {
   border: 1px solid var(--line);
   border-radius: 12px;
 }
+.row-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+.row-name { color: var(--muted); font-size: 13px; word-break: break-word; }
+.row-name.missing { font-style: italic; opacity: .75; }
+.qty {
+  flex: none;
+  min-width: 42px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
 .list li.new { animation: pop .3s ease-out; }
 @keyframes pop {
   from { background: #1f3a2a; transform: scale(.99); }
@@ -244,5 +272,59 @@ input.serial { border-bottom: 1px solid var(--accent); }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast.warn { background: #ffd46b; }
 .toast.error { background: var(--danger); color: #2a0808; }
+
+/* Entry sheet */
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(0, 0, 0, .6);
+}
+.sheet {
+  width: 100%;
+  max-width: 520px;
+  max-height: 92vh;
+  overflow-y: auto;
+  padding: 18px 16px calc(18px + var(--safe-bottom));
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  border-radius: 18px 18px 0 0;
+  animation: rise .18s ease-out;
+}
+@keyframes rise {
+  from { transform: translateY(14px); opacity: .6; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.sheet h2 { margin: 0 0 14px; font-size: 17px; }
+.sheet label {
+  display: block;
+  margin: 12px 0 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+.sheet input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel-2);
+  color: var(--text);
+  font-size: 16px;
+}
+#entryCode { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.sheet input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.stepper { display: flex; gap: 8px; align-items: center; }
+.stepper input {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.step { flex: none; width: 58px; font-size: 22px; padding: 10px 0; }
+.sheet-actions { display: flex; gap: 10px; margin-top: 20px; }
 
 .debug-only { margin: 8px 16px; color: var(--muted); }

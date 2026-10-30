@@ -2,12 +2,13 @@
    - Page, script, style, manifest: network first, cache as fallback — so an update you
      publish is picked up on the next online launch without bumping anything here.
    - Decoder wasm and icons: cache first — big, and they only change with a version bump. */
-var CACHE = 'serial-scanner-v1';
+var CACHE = 'artikel-scanner-v2';
 var ASSETS = [
   './',
   './index.html',
   './styles.css',
   './app.js',
+  './xlsx.js',
   './manifest.webmanifest',
   './vendor/zxing-reader-iife.js',
   './vendor/zxing_reader.wasm',
@@ -20,7 +21,13 @@ var ASSETS = [
 self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE)
-      .then(function (cache) { return cache.addAll(ASSETS); })
+      .then(function (cache) {
+        // 'reload' skips the browser's own HTTP cache, otherwise a stale copy can
+        // get pinned in here for as long as this cache version lives.
+        return cache.addAll(ASSETS.map(function (url) {
+          return new Request(url, { cache: 'reload' });
+        }));
+      })
       .then(function () { return self.skipWaiting(); })
   );
 });
@@ -38,7 +45,12 @@ self.addEventListener('activate', function (event) {
 });
 
 function freshFirst(request) {
-  return fetch(request)
+  // A navigation Request cannot be re-created with new options, so use its URL there.
+  var fresh = request.mode === 'navigate'
+    ? fetch(request.url, { cache: 'no-store' })
+    : fetch(request, { cache: 'no-store' });
+
+  return fresh
     .then(function (response) {
       if (response && response.ok) {
         var copy = response.clone();

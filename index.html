@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="nl">
 <head>
 <meta charset="utf-8">
-<title>Serial Scanner</title>
+<title>Artikel Scanner</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
 <meta name="theme-color" content="#0b0d10">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Serials">
+<meta name="apple-mobile-web-app-title" content="Artikelen">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
 <link rel="icon" href="./icons/icon-192.png">
@@ -16,7 +16,7 @@
 <body>
 
 <header class="topbar">
-  <h1>Serial Scanner</h1>
+  <h1>Artikel Scanner</h1>
   <span id="count" class="count">0</span>
 </header>
 
@@ -27,36 +27,64 @@
     <div class="flash" id="flash" aria-hidden="true"></div>
 
     <div class="camera-idle" id="cameraIdle">
-      <p id="idleText">Tap start, then hold the label inside the frame.</p>
-      <button class="btn btn-primary" id="startBtn">Start scanning</button>
+      <p id="idleText">Tik op starten en houd het label in het kader.</p>
+      <button class="btn btn-primary" id="startBtn">Start scannen</button>
     </div>
   </section>
 
-  <p class="status" id="status">Ready.</p>
+  <p class="status" id="status">Klaar.</p>
 
   <div class="controls">
-    <button class="btn btn-stop hidden" id="stopBtn">Stop camera</button>
+    <button class="btn btn-stop hidden" id="stopBtn">Camera stoppen</button>
     <form class="manual" id="manualForm">
       <input id="manualInput" type="text" inputmode="text" autocomplete="off"
-             autocapitalize="characters" spellcheck="false" placeholder="Type a serial by hand">
-      <button class="btn btn-ghost" type="submit">Add</button>
+             autocapitalize="characters" spellcheck="false" placeholder="Artikelnummer intypen">
+      <button class="btn btn-ghost" type="submit">Toevoegen</button>
     </form>
   </div>
 
   <ul class="list" id="list"></ul>
-  <p class="empty" id="empty">No serials yet.</p>
+  <p class="empty" id="empty">Nog geen artikelen.</p>
 </main>
 
 <footer class="bottombar">
-  <button class="btn btn-ghost" id="clearBtn">Clear</button>
-  <button class="btn btn-primary btn-wide" id="shareBtn">Finish &amp; share</button>
+  <button class="btn btn-ghost" id="clearBtn">Wissen</button>
+  <button class="btn btn-primary btn-wide" id="shareBtn">Klaar &amp; delen</button>
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<!-- Invulvenster na een scan -->
+<div class="sheet-backdrop hidden" id="sheetBackdrop">
+  <form class="sheet" id="entryForm" autocomplete="off">
+    <h2 id="entryTitle">Artikel toevoegen</h2>
+
+    <label for="entryCode">Artikelnummer</label>
+    <input id="entryCode" type="text" autocapitalize="characters" spellcheck="false" required>
+
+    <label for="entryName">Artikelnaam</label>
+    <input id="entryName" type="text" autocapitalize="sentences" spellcheck="false"
+           placeholder="bijv. Navigatie-unit X200" list="knownNames">
+    <datalist id="knownNames"></datalist>
+
+    <label for="entryQty">Aantal</label>
+    <div class="stepper">
+      <button class="btn btn-ghost step" type="button" id="qtyMinus" aria-label="Aantal omlaag">&minus;</button>
+      <input id="entryQty" type="number" inputmode="numeric" min="1" step="1" value="1" required>
+      <button class="btn btn-ghost step" type="button" id="qtyPlus" aria-label="Aantal omhoog">+</button>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="btn btn-ghost" type="button" id="entryCancel">Annuleren</button>
+      <button class="btn btn-primary btn-wide" type="submit" id="entrySave">Opslaan</button>
+    </div>
+  </form>
+</div>
+
 <input type="file" id="debugFile" accept="image/*" class="debug-only hidden">
 
 <script src="./vendor/zxing-reader-iife.js"></script>
+<script src="./xlsx.js"></script>
 <script src="./app.js"></script>
 </body>
 </html>

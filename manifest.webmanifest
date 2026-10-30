@@ -1,7 +1,8 @@
 {
-  "name": "Serial Scanner",
-  "short_name": "Serials",
-  "description": "Scan serial number barcodes into a list and share it.",
+  "lang": "nl",
+  "name": "Artikel Scanner",
+  "short_name": "Artikelen",
+  "description": "Scan artikelnummers, vul naam en aantal in, deel de lijst als Excel-bestand.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
