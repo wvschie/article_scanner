@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Serial Scanner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#0b0d10">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Serials">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<link rel="icon" href="./icons/icon-192.png">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <h1>Serial Scanner</h1>
+  <span id="count" class="count">0</span>
+</header>
+
+<main>
+  <section class="camera" id="cameraBox">
+    <video id="video" playsinline muted autoplay></video>
+    <div class="frame" aria-hidden="true"><span class="laser"></span></div>
+    <div class="flash" id="flash" aria-hidden="true"></div>
+
+    <div class="camera-idle" id="cameraIdle">
+      <p id="idleText">Tap start, then hold the label inside the frame.</p>
+      <button class="btn btn-primary" id="startBtn">Start scanning</button>
+    </div>
+  </section>
+
+  <p class="status" id="status">Ready.</p>
+
+  <div class="controls">
+    <button class="btn btn-stop hidden" id="stopBtn">Stop camera</button>
+    <form class="manual" id="manualForm">
+      <input id="manualInput" type="text" inputmode="text" autocomplete="off"
+             autocapitalize="characters" spellcheck="false" placeholder="Type a serial by hand">
+      <button class="btn btn-ghost" type="submit">Add</button>
+    </form>
+  </div>
+
+  <ul class="list" id="list"></ul>
+  <p class="empty" id="empty">No serials yet.</p>
+</main>
+
+<footer class="bottombar">
+  <button class="btn btn-ghost" id="clearBtn">Clear</button>
+  <button class="btn btn-primary btn-wide" id="shareBtn">Finish &amp; share</button>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<input type="file" id="debugFile" accept="image/*" class="debug-only hidden">
+
+<script src="./vendor/zxing-reader-iife.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
