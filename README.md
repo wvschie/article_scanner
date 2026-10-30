@@ -12,7 +12,7 @@ The interface is in Dutch. Everything runs in the browser on the phone — no ac
 4. Wait a minute, then open `https://<your-github-name>.github.io/artikel-scanner/` in **Safari** on the iPhone.
 5. Share button → **Add to Home Screen**. Use the icon from then on.
 
-The repo holds only the scanner code — no company data, nothing confidential.
+The repo holds only the scanner code — no data of any kind is stored in it.
 
 ## Using it
 
@@ -70,3 +70,14 @@ Add `?debug=1` to the URL for a file picker that runs a barcode *image* through 
 | `sw.js` | offline cache |
 | `manifest.webmanifest`, `icons/` | home-screen icon and name |
 | `vendor/` | [zxing-wasm](https://github.com/Sec-ant/zxing-wasm) 3.1.4 barcode decoder, self-hosted |
+| `LICENSE`, `THIRD-PARTY-NOTICES.md`, `licenses/` | licensing |
+
+## License
+
+MIT — see `LICENSE`.
+
+The bundled barcode decoder keeps its own licenses: zxing-wasm is MIT, and the
+zxing-cpp code compiled into `vendor/zxing_reader.wasm` is Apache-2.0, which
+requires its license text to travel with the binary. Both are recorded in
+`THIRD-PARTY-NOTICES.md` with full texts under `licenses/`. Keep those files in
+the repo when you publish.
